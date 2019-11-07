@@ -78,12 +78,12 @@ public class ListaPrograssao {
 				p = new Progressao();
 				p.setA1(retornaA1(i)); 																					// set a1
 				p.setProgressao(retornaTipoProgressao(i)); 											// set tipo prograssao (PA ou PG)
+				p.setQuantidade(this.listaValores.get(i).retornaTamanhoList()); // set quantidade
 				List<Double> aux = retornaRasao(i, p.getProgressao());
 				p.setRazao(aux.get(0)); 																				// set razao
 				aux.remove(0);
 				if (aux.size() >= 0)
-					p.setListaAlterado(aux);
-				p.setQuantidade(this.listaValores.get(i).retornaTamanhoList()); // set quantidade
+					p.setPorcentoAlterado(retornaPorcentagemErrada(aux.size(), p.getQuantidade()));
 				p.setSomatorio(this.listaValores.get(i).retornaSomatorio());		// set somatório
 				p.setMedia(this.listaValores.get(i).retornaMedia());
 				p.setModa(-1);
@@ -115,6 +115,10 @@ public class ListaPrograssao {
 	
 	public List<Double> retornaRasao(int index, TipoProgressao tipoPrograssao) {
 		return this.listaValores.get(index).razao(tipoPrograssao);
+	}
+	
+	private double retornaPorcentagemErrada(int quantidadeErrada, int quantidadeTotal) {
+		return ((double)quantidadeErrada / (double)quantidadeTotal) * 100;
 	}
 
 	@Override

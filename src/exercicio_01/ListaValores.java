@@ -78,7 +78,7 @@ public class ListaValores {
 				if (i == 0)
 					change.add(this.valor.get(i + 1) - this.valor.get(i));
 				else {					
-					if (change.get(0) != (this.valor.get(i + 1) - this.valor.get(i)))
+					if (change.get(0) != (this.valor.get(i + 1) - this.valor.get(i))) 
 						change.add(this.valor.get(i + 1));
 					if (i == this.valor.size() - 2)
 						if (change.get(0) != (this.valor.get(1) - this.valor.get(0)))

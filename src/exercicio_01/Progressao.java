@@ -8,6 +8,7 @@
  */
 package exercicio_01;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,19 +24,15 @@ public class Progressao {
 	private int quantidade;
 	private TipoProgressao progressao;
 	private List<Double> lista;
-	private List<Double> listaAlterado;
+	private double porcentoAlterado;
 	
 	private double somatorio;
 	private double media;
 	private double moda;
 	private double mediana;	
 	
-	/**
-	 * 
-	 */
 	public Progressao() {
 		lista = new ArrayList<Double>();
-		listaAlterado = new ArrayList<Double>();
 	}
 	
 	public double getA1() {
@@ -67,11 +64,11 @@ public class Progressao {
 	protected void setLista(List<Double> lista) {
 		this.lista = lista;
 	}
-	protected List<Double> getListaAlterado() {
-		return listaAlterado;
+	protected double getPorcentoAlterado() {
+		return porcentoAlterado;
 	}
-	protected void setListaAlterado(List<Double> listaAlterado) {
-		this.listaAlterado = listaAlterado;
+	protected void setPorcentoAlterado(double porcentoAlterado) {
+		this.porcentoAlterado = porcentoAlterado;
 	}
 	protected double getSomatorio() {
 		return somatorio;
@@ -135,7 +132,8 @@ public class Progressao {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder("\n");
+		DecimalFormat df = new DecimalFormat("#,0%");
+		StringBuilder builder = new StringBuilder();
 		builder.append("Progressao [a1=");
 		builder.append(a1);
 		builder.append(", razao=");
@@ -148,10 +146,8 @@ public class Progressao {
 		builder.append("[");
 		builder.append(this.lista.stream().map(Object::toString).collect(Collectors.joining(", ")));
 		builder.append(']');
-		builder.append(", listaAlterado=");
-		builder.append("[");
-		builder.append(this.listaAlterado.stream().map(Object::toString).collect(Collectors.joining(", ")));
-		builder.append(']');
+		builder.append(", porcentoAlterado=");
+		builder.append(df.format(porcentoAlterado));
 		builder.append(", somatorio=");
 		builder.append(somatorio);
 		builder.append(", media=");
