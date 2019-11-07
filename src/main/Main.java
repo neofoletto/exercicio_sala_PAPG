@@ -6,7 +6,11 @@
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
  */
-package exercicio_01;
+package main;
+
+import exercicio_01.ListaPrograssao;
+import exercicio_01.Progressao;
+import exercicio_01.TipoProgressao;
 
 /**
  * @author neo
@@ -45,11 +49,9 @@ public class Main {
 		p.setRazao(3);
 		p.setQuantidade(7);
 		p.setProgressao(TipoProgressao.PG);
+		System.out.println(p);
 		listaProgressa.inserir(p);		
 		
-		listaProgressa.gravar(nomeArquivo);
-		
-		System.out.println(listaProgressa.leArquivoRetornaListaCompleta(nomeArquivo));
-//		System.out.printf("Valor inicial da sequência: %d", listaProgressa.retornaA1());
+		listaProgressa.gravar(nomeArquivo);	
 	}
 }

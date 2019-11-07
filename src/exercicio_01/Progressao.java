@@ -10,6 +10,7 @@ package exercicio_01;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author neo
@@ -22,12 +23,19 @@ public class Progressao {
 	private int quantidade;
 	private TipoProgressao progressao;
 	private List<Double> lista;
+	private List<Double> listaAlterado;
+	
+	private double somatorio;
+	private double media;
+	private double moda;
+	private double mediana;	
 	
 	/**
 	 * 
 	 */
 	public Progressao() {
 		lista = new ArrayList<Double>();
+		listaAlterado = new ArrayList<Double>();
 	}
 	
 	public double getA1() {
@@ -51,13 +59,45 @@ public class Progressao {
 	public TipoProgressao getProgressao() {
 		return progressao;
 	}
-	
 	public List<Double> getLista() {
 		return lista;
 	}
 	
+	// PROTECTED
+	protected List<Double> getListaAlterado() {
+		return listaAlterado;
+	}
+	protected void setListaAlterado(List<Double> listaAlterado) {
+		this.listaAlterado = listaAlterado;
+	}
+	protected double getSomatorio() {
+		return somatorio;
+	}
+	protected void setSomatorio(double somatorio) {
+		this.somatorio = somatorio;
+	}
+	protected double getMedia() {
+		return media;
+	}
+	protected void setMedia(double media) {
+		this.media = media;
+	}
+	protected double getModa() {
+		return moda;
+	}
+	protected void setModa(double moda) {
+		this.moda = moda;
+	}
+	protected double getMediana() {
+		return mediana;
+	}
+	protected void setMediana(double mediana) {
+		this.mediana = mediana;
+	}
+
 	public void setProgressao(TipoProgressao progressao) {
 		ListaValores v = new ListaValores();
+		this.progressao = progressao;
 		switch (progressao) {
 		case PA:
 			pa(v);
@@ -92,16 +132,32 @@ public class Progressao {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		StringBuilder builder = new StringBuilder("\n");
 		builder.append("Progressao [a1=");
 		builder.append(a1);
 		builder.append(", razao=");
 		builder.append(razao);
 		builder.append(", quantidade=");
 		builder.append(quantidade);
+		builder.append(", progressao=");
+		builder.append(progressao);
+		builder.append(", lista=");
+		builder.append("[");
+		builder.append(this.lista.stream().map(Object::toString).collect(Collectors.joining(", ")));
+		builder.append(']');
+		builder.append(", listaAlterado=");
+		builder.append("[");
+		builder.append(this.listaAlterado.stream().map(Object::toString).collect(Collectors.joining(", ")));
+		builder.append(']');
+		builder.append(", somatorio=");
+		builder.append(somatorio);
+		builder.append(", media=");
+		builder.append(media);
+		builder.append(", moda=");
+		builder.append(moda);
+		builder.append(", mediana=");
+		builder.append(mediana);
 		builder.append("]");
 		return builder.toString();
 	}
-
-
 }

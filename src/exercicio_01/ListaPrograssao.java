@@ -11,6 +11,7 @@ package exercicio_01;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 import persistencia.Gravacao;
 import persistencia.Persistencia;
@@ -38,6 +39,17 @@ public class ListaPrograssao {
 	public List<ListaValores> ler(String nome) {
 		return pers.ler(nome);
 	}
+	
+	public boolean lerGravarListaValores(String nome) {
+		try {
+			this.listaValores = pers.ler(nome);
+			persisteValoresListaProgressao();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public void inserir(Progressao progressao) {
 		this.listaProgressao.add(progressao);
@@ -59,20 +71,57 @@ public class ListaPrograssao {
 		return builder.toString();
 	}
 	
-	public Double retornaA1() {
-		if (this.listaValores.size() == 0)
-			return this.listaValores.get(0).retonarPrimeiroValor();
-		else 
-			return -1.0;
-	}
-	
-	public void returnaRasao() {
-		if (this.listaValores.get(0).rasao() != -1) {
-			this.listaProgressao.get(0).setRazao(this.listaValores.get(0).rasao());
-			this.listaProgressao.get(0).setProgressao(TipoProgressao.PA);
-		}else {
-			this.listaProgressao.get(0).setRazao(this.listaValores.get(0).rasao());
-			this.listaProgressao.get(0).setProgressao(TipoProgressao.PG);
+	private void persisteValoresListaProgressao() {
+		try {
+			Progressao p;
+			for (int i = 0; i < this.listaValores.size(); i++) {
+				p = new Progressao();
+				p.setA1(retornaA1(i)); 																					// set a1
+				p.setProgressao(retornaTipoProgressao(i)); 											// set tipo prograssao (PA ou PG)
+				List<Double> aux = retornaRasao(i, p.getProgressao());
+				p.setRazao(aux.get(0)); 																				// set razao
+				aux.remove(0);
+				if (aux.size() >= 0)
+					p.setListaAlterado(aux);
+				p.setQuantidade(this.listaValores.get(i).retornaTamanhoList()); // set quantidade
+				p.setSomatorio(this.listaValores.get(i).retornaSomatorio());		// set somatório
+				p.setMedia(this.listaValores.get(i).retornaMedia());
+				p.setModa(-1);
+				p.setMediana(this.listaValores.get(i).retornaMedia());					// set mediana
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * retorna o valor para a variável A1
+	 * 
+	 * @return Double
+	 */
+	private Double retornaA1(int index) {
+		return this.listaValores.get(index).retonarPrimeiroValor();
+	}
+	
+	private TipoProgressao retornaTipoProgressao(int index) {
+		if (this.listaValores.get(index).validaPAouPG())
+			if (this.listaValores.get(index).razaoPG())
+				return TipoProgressao.PG;		
+		
+		return TipoProgressao.PA;
+	}
+	
+	public List<Double> retornaRasao(int index, TipoProgressao tipoPrograssao) {
+		return this.listaValores.get(index).razao(tipoPrograssao);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ListaPrograssao: ");
+		builder.append(this.listaProgressao.stream().map(Object::toString).collect(Collectors.joining("\n")));
+		return builder.toString();
+	}
+	
+	
 }
