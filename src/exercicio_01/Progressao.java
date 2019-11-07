@@ -64,6 +64,9 @@ public class Progressao {
 	}
 	
 	// PROTECTED
+	protected void setLista(List<Double> lista) {
+		this.lista = lista;
+	}
 	protected List<Double> getListaAlterado() {
 		return listaAlterado;
 	}

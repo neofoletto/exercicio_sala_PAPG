@@ -88,6 +88,8 @@ public class ListaPrograssao {
 				p.setMedia(this.listaValores.get(i).retornaMedia());
 				p.setModa(-1);
 				p.setMediana(this.listaValores.get(i).retornaMedia());					// set mediana
+				p.setLista(this.listaValores.get(i).getValor());
+				this.listaProgressao.add(p);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -29,7 +29,6 @@ public class ListaValores {
 	public List<Double> getValor() {
 		return valor;
 	}
-
 	public void setValor(double valor) {
 		this.valor.add(valor);
 	}
@@ -82,7 +81,7 @@ public class ListaValores {
 					if (change.get(0) != (this.valor.get(i + 1) - this.valor.get(i)))
 						change.add(this.valor.get(i + 1));
 					if (i == this.valor.size() - 2)
-						if (change.get(0) != (this.valor.get(i + 1) - this.valor.get(0)))
+						if (change.get(0) != (this.valor.get(1) - this.valor.get(0)))
 							change.add(this.valor.get(0));
 				}
 			}
@@ -95,7 +94,7 @@ public class ListaValores {
 					if (change.get(0) != (this.valor.get(i + 1) / this.valor.get(i)))
 						change.add(this.valor.get(i + 1));
 					if (i == this.valor.size() - 2)
-						if (change.get(0) != (this.valor.get(i + 1) / this.valor.get(0)))
+						if (change.get(0) != (this.valor.get(1) / this.valor.get(0)))
 							change.add(this.valor.get(0));
 				}
 			}
